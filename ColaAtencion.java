@@ -20,7 +20,7 @@ public class ColaAtencion<T> {
             frente = nuevo;
 
         } else {
-            fin.siguiente = nuevo;
+            fin.getSiguiente(nuevo);
         }
         fin = nuevo;
         tamano++;
@@ -33,8 +33,8 @@ public class ColaAtencion<T> {
             return null;
         }
 
-        T atendida = frente.dato;
-        frente = frente.siguiente;
+        T atendida = frente.getDato();
+        frente = frente.getSiguiente;
         if (frente == null) fin = null;
         tamano--;
 
@@ -53,10 +53,22 @@ public class ColaAtencion<T> {
 
     // obtiene la proxima mascota sin removerla
     public T verProxima() {
-        if(estaVacia()); return null;
-        return frente.dato;
+        if(estaVacia()) return null;
+        return frente.getDato;
     }
 
     //Necesitamos un metodo que convierta la cola en array para el GUI
+    public String[] obtenerComoArray() {
+        String[] array = new String[tamano];
+        NodoCola<T> actual = frente;
+        int i = 0;
+
+        while (actual != null) {
+            array[i++] = actual.getDato().toString(); //toString es para poder hacer el archivo cuando se usa el gui
+            actual = actual.getSiguiente();
+        }
+
+    return array;
+    }
 
 }
