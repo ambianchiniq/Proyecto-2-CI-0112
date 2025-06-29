@@ -5,7 +5,7 @@ public class ArbolMascotas {
         raiz = null;
     }
 
-    // Inserta una mascota en el árbol ordenado por id
+    // Inserta mascota nueva en el arbol
     public void insertar(Mascota mascota) {
         raiz = insertarRecursivo(raiz, mascota);
     }
@@ -15,20 +15,22 @@ public class ArbolMascotas {
             return new NodoArbol<>(mascota);
         }
 
+        //Compara directamente
         if (mascota.getId() < nodo.getDato().getId()) {
             nodo.setIzquierdo(insertarRecursivo(nodo.getIzquierdo(), mascota));
         } else if (mascota.getId() > nodo.getDato().getId()) {
             nodo.setDerecho(insertarRecursivo(nodo.getDerecho(), mascota));
         }
-        // Si el id es igual, no se inserta (evitar duplicados)
+        // Si el id es igual, no se inserta para evitar duplicados
         return nodo;
     }
 
-    // Busca mascota por id
+    // Busca el id de una mascota
     public Mascota buscarPorId(int id) {
         return buscarRecursivo(raiz, id);
     }
 
+    //Busca recursivamente el id
     private Mascota buscarRecursivo(NodoArbol<Mascota> nodo, int id) {
         if (nodo == null) {
             return null;
@@ -42,7 +44,7 @@ public class ArbolMascotas {
         }
     }
 
-    // Elimina una mascota por id
+    // Elimina una mascota 
     public void eliminar(int id) {
         raiz = eliminarRecursivo(raiz, id);
     }
@@ -57,13 +59,13 @@ public class ArbolMascotas {
         } else if (id > nodo.getDato().getId()) {
             nodo.setDerecho(eliminarRecursivo(nodo.getDerecho(), id));
         } else {
-            // Nodo encontrado: casos de eliminación
+            // Si encuentra un nodo tiene casos de eliminación: por ejemplo que tenga un solo hijo o que no tenga hijos
             if (nodo.getIzquierdo() == null) {
                 return nodo.getDerecho();
             } else if (nodo.getDerecho() == null) {
                 return nodo.getIzquierdo();
             } else {
-                // Nodo con dos hijos: obtener sucesor (mínimo del subárbol derecho)
+                // Nodo con dos hijos y obtiene sucesor (mínimo del subárbol derecho)
                 NodoArbol<Mascota> sucesor = obtenerMinimo(nodo.getDerecho());
                 nodo.setDato(sucesor.getDato());
                 nodo.setDerecho(eliminarRecursivo(nodo.getDerecho(), sucesor.getDato().getId()));
@@ -86,7 +88,7 @@ public class ArbolMascotas {
         return 1 + contarNodos(nodo.getIzquierdo()) + contarNodos(nodo.getDerecho());
     }
 
-    // Llena un arreglo con las mascotas en orden (inorden)
+    // Llena un arreglo con las mascotas en orden solo para el archivo ya que la cola si es FIFO
     private void llenarArrayInorden(NodoArbol<Mascota> nodo, String[] arr, int[] index) {
         if (nodo != null) {
             llenarArrayInorden(nodo.getIzquierdo(), arr, index);
@@ -96,7 +98,7 @@ public class ArbolMascotas {
         }
     }
 
-    // Devuelve un arreglo de String con las mascotas ordenadas por id (inorden)
+    // Devuelve un arreglo de String con las mascotas ordenadas por id (La cola si es FIFO)
     public String[] obtenerMascotasOrdenadas() {
         int total = contarNodos(raiz);
         String[] resultado = new String[total];
@@ -105,7 +107,7 @@ public class ArbolMascotas {
         return resultado;
     }
 
-    // Para guardar o cargar: getters y setters de la raíz
+    //getters y setters de la raíz
     public NodoArbol<Mascota> getRaiz() {
         return raiz;
     }
@@ -114,7 +116,7 @@ public class ArbolMascotas {
         this.raiz = raiz;
     }
 
-    // Mostrar árbol en orden (console/debug)
+    // Mostrar árbol en orden
     public void mostrarInorden() {
         mostrarInordenRec(raiz);
     }
