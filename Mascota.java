@@ -40,6 +40,6 @@ public class Mascota {
     }
 
     public String toString() {
-        return "ID: " + id + " - Nombre: " + " - Especie: " + especie + " - Dueno: " + dueno;
+        return "ID: " + id + " - Nombre: " + nombre + " - Especie: " + especie + " - Dueno: " + dueno;
     }
 }
