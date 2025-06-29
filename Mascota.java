@@ -35,7 +35,7 @@ public class Mascota {
         this.especie = especie;
     }
 
-    public void setDueno(String duenio) {
+    public void setDueno(String dueno) {
         this.dueno = dueno;
     }
 
