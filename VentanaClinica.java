@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.io.*;
 import java.awt.*;
 import java.awt.event.*;
-//Tuve que meter dos imports para que sirvieran algunas cosas
+//Tuve que meter 2 imports para que sirvieran algunas cosas
 
 public class VentanaClinica extends JFrame {
     private ArbolMascotas arbol;
@@ -56,7 +56,7 @@ public class VentanaClinica extends JFrame {
         panelRegistro.add(new JLabel("Dueno: "));
         panelRegistro.add(campoDueno);
 
-        JButton botonRegitrar = new JButton("Registrar y meter a la cola");
+        JButton botonRegitrar = new JButton("Registrar e ingresar a la fila");
         JButton botonAtender = new JButton("Atender mascota");
 
         panelRegistro.add(botonRegitrar);
@@ -66,6 +66,28 @@ public class VentanaClinica extends JFrame {
 
 
         //ahora para la informacion
+        JPanel panelCentro = new JPanel(new GridLayout(1, 3));
+
+        areaCola = new JTextArea();
+        areaCola.setEditable(false);
+        areaCola.setBorder(BorderFactory.createTitledBorder("Cola de Atencion"));
+        panelCentro.add(new JScrollPane(areaCola));
+
+        areaArbol = new JTextArea();
+        areaArbol.setEditable(false);
+        areaArbol.setBorder(BorderFactory.createTitledBorder("Mascotas Registradas"));
+        panelCentro.add(new JScrollPane(areaArbol));
+
+        areaActual = new JTextArea();
+        areaActual.setEditable(false);
+        areaActual.setBorder(BorderFactory.createTitledBorder("Mascota Atendida"));
+        panelCentro.add(new JScrollPane(areaActual));
+
+        add(panelCentro, BorderLayout.CENTER);
+
+
+        
+        //Ahora conectar el gui con el programa en si
 
     }
 
