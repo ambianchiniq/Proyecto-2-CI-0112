@@ -12,6 +12,10 @@ public class ColaAtencion<T> {
         tamano = 0;
     }
 
+    public NodoCola<T> getFrente() {
+        return frente;
+    }
+
     //metodo para agregar elemento al final de la lista osea es la cola
     public void agregarFinal(T mascota) {
         NodoCola<T> nuevo = new NodoCola<>(mascota);
