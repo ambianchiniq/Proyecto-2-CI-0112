@@ -24,7 +24,7 @@ public class ColaAtencion<T> {
             frente = nuevo;
 
         } else {
-            fin.getSiguiente(nuevo);
+            fin.setSiguiente(nuevo);
         }
         fin = nuevo;
         tamano++;
@@ -38,7 +38,7 @@ public class ColaAtencion<T> {
         }
 
         T atendida = frente.getDato();
-        frente = frente.getSiguiente;
+        frente = frente.getSiguiente();
         if (frente == null) fin = null;
         tamano--;
 
@@ -58,7 +58,7 @@ public class ColaAtencion<T> {
     // obtiene la proxima mascota sin removerla
     public T verProxima() {
         if(estaVacia()) return null;
-        return frente.getDato;
+        return frente.getDato();
     }
 
     //Necesitamos un metodo que convierta la cola en array para el GUI
