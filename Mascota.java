@@ -4,8 +4,8 @@ public class Mascota {
     private String especie;
     private String dueno;
 
-    public Mascota(String nombre, String especie, String dueno) {
-        this.id = GeneradorIds.generarNuevoId();
+    public Mascota(int id, String nombre, String especie, String dueno) {
+        this.id = id;
         this.nombre = nombre;
         this.especie = especie;
         this.dueno = dueno;
