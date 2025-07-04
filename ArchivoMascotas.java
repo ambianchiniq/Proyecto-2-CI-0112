@@ -2,25 +2,32 @@ import java.io.*;
 import javax.swing.*;
 
 public class ArchivoMascotas {
-    //guarda el arbol en el archivo
-    public static void guardarMascotas(ArbolMascotas arbol, String nombreArchivo) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(nombreArchivo))) {
+
+    // Guarda las mascotas del arbol en el archivo
+    public static void guardarEnArchivo(ArbolMascotas arbol) {
+        try {
+            File archivo = new File("mascotas_guardadas.txt");
+            BufferedWriter writer = new BufferedWriter(new FileWriter(archivo));
+
             guardarRecursivo(arbol.getRaiz(), writer);
-            writer.flush();
+            writer.close();
+
+            JOptionPane.showMessageDialog(null, "Archivo guardado correctamente.");
+
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al guardar archivo: " + e.getMessage());
         }
     }
 
-    //recorre el arbol recursivamente para escribir cada mascota
-    private static void guardarRecursivo(NodoArbol<Mascota> nodo, PrintWriter writer) {
+    // Recorrido inorden y escritura
+    private static void guardarRecursivo(NodoArbol<Mascota> nodo, BufferedWriter writer) throws IOException {
         if (nodo != null) {
             guardarRecursivo(nodo.getIzquierdo(), writer);
             Mascota m = nodo.getDato();
-            writer.println(m.getId() + "," + m.getNombre() + "," + m.getEspecie() + "," + m.getDueno());
+            String linea = m.getId() + "," + m.getNombre() + "," + m.getEspecie() + "," + m.getDuenio();
+            writer.write(linea);
+            writer.newLine();
             guardarRecursivo(nodo.getDerecho(), writer);
         }
     }
-
-    // metodo para cargar desde archivo tambien debe ir aqui
 }
