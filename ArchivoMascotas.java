@@ -1,20 +1,18 @@
-import java.io.PrintWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import javax.swing.JOptionPane;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileNotFoundException;
+import java.io.*;
+import javax.swing.*;
 
 public class ArchivoMascotas {
+    //guarda el arbol en el archivo
     public static void guardarMascotas(ArbolMascotas arbol, String nombreArchivo) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(nombreArchivo))) {
             guardarRecursivo(arbol.getRaiz(), writer);
+            writer.flush();
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error al guardar: " + e.getMessage());
         }
     }
 
+    //recorre el arbol recursivamente para escribir cada mascota
     private static void guardarRecursivo(NodoArbol<Mascota> nodo, PrintWriter writer) {
         if (nodo != null) {
             guardarRecursivo(nodo.getIzquierdo(), writer);
@@ -24,5 +22,5 @@ public class ArchivoMascotas {
         }
     }
 
-    // método para cargar desde archivo también debe ir aquí
+    // metodo para cargar desde archivo tambien debe ir aqui
 }
