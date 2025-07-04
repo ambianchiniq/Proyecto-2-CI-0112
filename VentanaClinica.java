@@ -130,7 +130,9 @@ public class VentanaClinica extends JFrame {
         itemSalir.addActionListener(e -> System.exit(0)); // boton de salir
 
         //para guardar y cargar
-        itemGuardar.addActionListener(e -> JOptionPane.showMessageDialog(this, "Funcion de guardar"));
+        itemGuardar.addActionListener(e -> {
+            ArchivoMascotas.guardarEnArchivo(arbol);
+        })
         itemCargar.addActionListener(e -> JOptionPane.showMessageDialog(this, "Funcion de cargar"));
 
 
