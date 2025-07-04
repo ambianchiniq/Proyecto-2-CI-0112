@@ -24,7 +24,7 @@ public class ArchivoMascotas {
         if (nodo != null) {
             guardarRecursivo(nodo.getIzquierdo(), writer);
             Mascota m = nodo.getDato();
-            String linea = m.getId() + "," + m.getNombre() + "," + m.getEspecie() + "," + m.getDuenio();
+            String linea = m.getId() + "," + m.getNombre() + "," + m.getEspecie() + "," + m.getDueno();
             writer.write(linea);
             writer.newLine();
             guardarRecursivo(nodo.getDerecho(), writer);
