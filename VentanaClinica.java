@@ -56,10 +56,10 @@ public class VentanaClinica extends JFrame {
         panelRegistro.add(new JLabel("Dueno: "));
         panelRegistro.add(campoDueno);
 
-        JButton botonRegitrar = new JButton("Registrar e ingresar a la fila");
+        JButton botonRegistrar = new JButton("Registrar e ingresar a la fila");
         JButton botonAtender = new JButton("Atender mascota");
 
-        panelRegistro.add(botonRegitrar);
+        panelRegistro.add(botonRegistrar);
         panelRegistro.add(botonAtender);
 
         add(panelRegistro, BorderLayout.NORTH);
@@ -86,12 +86,81 @@ public class VentanaClinica extends JFrame {
         add(panelCentro, BorderLayout.CENTER);
 
 
-        
+
         //Ahora conectar el gui con el programa en si
+        //este boton es el de agregar a la cola
+        botonRegistrar.addActionListener(e -> {
+            String nombre = campoNombre.getText().trim();//trim para quitar espacios al inicio y final por si acaso
+            String especie = campoEspecie.getText().trim();
+            String dueno = campoDueno.getText().trim();
+
+            //Por si les falta poner alguna cosa y no se salve sin nada
+            if (nombre.isEmpty() || especie.isEmpty() || dueno.isEmpty()){
+                JOptionPane.showMessageDialog(this, "Complete todos los campos por favor.");
+                return;
+            }
+
+            int id = GeneradorIds.generarNuevoId();
+            Mascota m = new Mascota(id, nombre, especie, dueno);
+
+            arbol.insertar(m);
+            cola.agregarFinal(m);
+            actualizarPantallas();//metodo para actualizar y que salga de una vez en la cola
+
+            campoNombre.setText("");
+            campoEspecie.setText("");
+            campoDueno.setText("");
+
+        });
+
+        //este botono es para atender a la mascota
+        botonAtender.addActionListener(e -> {
+            //Si no hay mascotas en la cola
+            if (cola.estaVacia()) {
+                JOptionPane.showMessageDialog(this, "No hay mascotas en la fila.");
+                return;
+            }
+
+            Mascota atendida = cola.eliminarInicio("No hay mascotas para atender.");
+            areaActual.setText(atendida.toString());
+            actualizarPantallas();
+
+        });
+
+        itemSalir.addActionListener(e -> System.exit(0)); // boton de salir
+
+        //para guardar y cargar
+        itemGuardar.addActionListener(e -> JOptionPane.showMessageDialog(this, "Funcion de guardar"));
+        itemCargar.addActionListener(e -> JOptionPane.showMessageDialog(this, "Funcion de cargar"));
+
 
     }
 
 
+    //metodo actualizar pantalla
+    private void actualizarPantallas() {
+        //actualiza la cola
+        StringBuilder sbCola = new StringBuilder();
+        NodoCola<Mascota> actual = cola.getFrente();
+        while(actual != null) {
+            //es para poner el nombre de la mascota y la especie 
+            sbCola.append(actual.getDato().getNombre());
+            sbCola.append(" - ");
+            sbCola.append(actual.getDato().getEspecie());
+            sbCola.append("\n");
+            actual = actual.getSiguiente();
+        }
+
+        areaCola.setText(sbCola.toString());
+
+        //tambien hay que actualizar el arbol:
+        String[] mascotas = arbol.obtenerMascotasOrdenadas();
+        StringBuilder sbArbol = new StringBuilder();
+        for(int i = 0; i < mascotas.length; i++){
+            sbArbol.append(mascotas[i]).append("\n");
+        }
+        areaArbol.setText(sbArbol.toString());
+    }
 
 
     //para ir probando cada cosa del gui
